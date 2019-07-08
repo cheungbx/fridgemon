@@ -1,6 +1,6 @@
 # fridgemon
 
-This is a ESP8266 (nodeMCU D1 Mini) project to read DHT22 humidity sensor for temperature (-40C to 125C) and humidity and display at the OLED I2C SSD1306 128 x 64 pixels , and also use WIFI MQTT to post to the MQTT server of adafruit.io
+This is a ESP8266 (nodeMCU D1 Mini) project to read DHT22 humidity sensor for temperature (-40C to 125C) and humidity and display at the OLED I2C SSD1306 128 x 64 pixels. Wifi is used publish data to the MQTT server of adafruit.io
 WIFI is also used to connect to the NTP server to set the real time clock inside ESP8266 during boot up.
 A digital clock will be displayed on the OLED.
 The whole thing can be attached to the door of the refrigerator with the sensor placed inside the ice box to post temperature and humidity info around the clock once every 10 minutes and whenever the temperature and humidity value form the sensor changes.
