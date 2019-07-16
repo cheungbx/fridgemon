@@ -114,7 +114,11 @@ Adruino->Preference->"Additional Boards Manager Url:", then input http://arduino
 Then exit Arduino and restart to take in the preference.
 
 Reopen Arduino IDE
-Tools->Borad->ESP8266 Wemos D1 R1  (Appear under the section for ESP8266, will not show up unless you did the preference setting above)
+Tools->Borad:Atmega... ->Boards Manager
+Input ESP8266 to search and find the matching board drivers for ESP8266
+Click Install to install.
+
+Tools->Borad->LOLIN（Wemos）D1 R2 & Mini (Appear under the section for ESP8266, will not show up unless you did the preference setting above and installed the board drivers for ESP8266)
 Tools->Flash size-> "4M (3M SPIFFS)"  (to partition how much flash memory to store the temperature and humidity data. 3M is the max. 1M is the min.)
 Tools->Port:->"/dev/cu......."  - select your serail port used to connect to the ESP8266, if nothing shows up, check your cable or your driver for that USB-Serail port.
                                   Most ESP ports used the CH340 driver (e.g. Wemos D1 R1) or the CP1201 driver.
