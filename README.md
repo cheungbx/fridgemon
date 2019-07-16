@@ -34,8 +34,12 @@
   OTA:    Over The Air code upgrade has been included to allow future codes to be upgraded over WIFI.
           Just press the "Upgrade" button on the MQTT dashboard to put the ESP8266 in a firmware program mode. 
           Then on the Arduino IDE, click Ports, and find the matching IP address for your board. 
+          If you do not see the ip address, you can try exiting Arduino IDE and restarting again.
+          Once you see the IP address listed as a port (under network port), you can 
           Click "->" to comple and upload new codes.
-          If the upload is not done within 1 min, ESP8266 will resume the normal program execution mode.
+          It's much faster uploading codes thorugh WIFI than over Serial port.
+          The only draw back is that the Serial port monitor function will not work, as the port has been changed from Serial to IP.
+          If the upload is not done within 90 secponds, ESP8266 will resume the normal program execution mode.
            
 
  
