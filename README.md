@@ -164,10 +164,6 @@ Once wifi is successfully connected, you will see the message like th eone below
 Connecting to: homewifissid
 ...........WiFi connected at: 192.168.1.113
 
-Record the ip address.
-Then from a PC conneced to the same network as the ESP8266  open a browser (chrome or i.e.) and browse to the ip address (e.g. 192.168.1.113)
-You should see the Web server home page with the charts and the menus.
-Click help on the web page to find out how to navigate.
 
 
 */
