@@ -32,8 +32,11 @@
           3. DHT22 provides both the temperature and humdity measurement.
 
   OTA:    Over The Air code upgrade has been included to allow future codes to be upgraded over WIFI.
-          Just press reset button on ESP8266, and within 15 seconds, upload codes through Arduino IDE by referencing the IP address of the ESP 8266 microcontroller.
- 
+          Just press the "Upgrade" button on the MQTT dashboard to put the ESP8266 in a firmware program mode. 
+          Then on the Arduino IDE, click Ports, and find the matching IP address for your board. 
+          Click "->" to comple and upload new codes.
+          If the upload is not done within 1 min, ESP8266 will resume the normal program execution mode.
+           
 
  
  ESP 8266 WIFI library and the PubSubClient for MQTT IoT communications
@@ -133,7 +136,7 @@ Mr. Andreas Spiess has created a very good youtube video about how to set up you
 Please view this youtube video.  #48 Connect ESP8266 with the world (and IFTT) through MQTT and Adafruit.io (Tutorial)
 https://www.youtube.com/watch?v=9G-nMGcELG8
 
-Onc eyou have the MQTT account on adafruit.io
+Once you have the MQTT account on adafruit.io
 Set up your dashboards and add the follwoing feeds.
 temperature
 humidity
@@ -141,7 +144,7 @@ lightsw
 upgrade
 
 Then update the full path of the feeds to the credential.h file.
-e,g, 
+e.g. 
 
 #define IO_Temperature "cheungbx2/feeds/temperature"
 #define IO_Humidity    "cheungbx2/feeds/humidity"
