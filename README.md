@@ -176,10 +176,12 @@ Check that WIFI is connected successfully. If no, check the SSID nad password yo
 You can click the reset button on the ESP8266 board to reboot any time.
 Or you can adjust the source code and clieck "->" to recompile and upload again.
 
-Once wifi is successfully connected, you will see the message like th eone below
+Once wifi is successfully connected, you will see the message like the one below
 Connecting to: homewifissid
 ...........WiFi connected at: 192.168.1.113
 
-
+Then you can login to your MQTT account in adafruit.io to view the dashboard and the feeds.
+And create charts for the feeds and buttons for the light switch and upgrade.
+Then test the other features.
 
 */
