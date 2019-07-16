@@ -125,7 +125,12 @@ If you already have an account on adafruit.io, put in the id and passwords you u
 and the AIO key.
 
 Otherwise, you need to first register at Adafruit.io to get a free account.
-Then set up your dashboards and add teh follwoing feeds.
+Mr. Andreas Spiess has created a very good youtube video about how to set up your own MQTT account on Adafruit.io.
+Please view this youtube video.  #48 Connect ESP8266 with the world (and IFTT) through MQTT and Adafruit.io (Tutorial)
+https://www.youtube.com/watch?v=9G-nMGcELG8
+
+Onc eyou have the MQTT account on adafruit.io
+Set up your dashboards and add the follwoing feeds.
 temperature
 humidity
 lightsw
