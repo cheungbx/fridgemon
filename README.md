@@ -1,5 +1,4 @@
-# fridgemon
-/*
+ /*
  Author: Billy Cheung
  
  
@@ -40,7 +39,7 @@
           It's much faster uploading codes thorugh WIFI than over Serial port.
           The only draw back is that the Serial port monitor function will not work, as the port has been changed from Serial to IP.
           If the upload is not done within 90 secponds, ESP8266 will resume the normal program execution mode.
-           
+ 
 
  
  ESP 8266 WIFI library and the PubSubClient for MQTT IoT communications
@@ -61,33 +60,50 @@ Get the ESP8266 NodeMCU D1 mini with the pins pre-soldered. Otherwise, solder th
 Insert the NodeMCon onto the breadboard.
 Then make the following connections
 
-Connect the DHT22  according to the following pin layout.
+Connect the SHT20  according to the following pin layout.
 *** WARNING *** Do not swap VCC (+3V) and Ground (0V), otherwised, the chip will be burnt very quickly.
     ___________
-    |  DHT22  |
-    |  front  |
-    |  with   |
-    |  holes  |
+    |  SHT20  |
+    |         |
     ___________
       1 2 3 4
-      V D N G
-      C A C N
-      C T   D
-        A
+      V S S G
+      C D C N
+      C A L D
+        
 
-Pin 1-VCC connect to the 3V/VCC of the ESP8266 board
-pin 2-Data connect to GPIO 13 (appeared on circuit board of NodeMCU D1 as "MOSI/D7" on NodeMCU D1
-Pin 4-GND connect to GND (ground) of the ESP8266 board.
-Connect your USB cable from your computer to the ESP8266 board. Make sure you use a good cable. 
-Many charging only cable do not have the data pins. 
-Long USB cables > 1.5M  may  not work as the data signals dies out due to the long distance.
+Connect the the Vcc of the SHT20 to +3V (VCC) of the ESP8266
+Connect the GND of the SHT20  to the GND of the ESP8266
+Connect the SDA of the SHT20 to GPIO GPIO4 aka D2 of the ESP8266
+Connect the SCL of the SHT20 to GPIO GPIO5 aka D1 of the ESP8266s. 
+The SHT sensor can be connected to a max 1 M dupoint cable.
+Cable > 1M may not work as the  data signals dies out due to the long distance and the interference may be too much.
+
+
+Optionally, you can add a light sensor BH1750 for a Lux meter.
+*    ___________
+*
+*    |  BH1750  |
+*    |          |
+*    ___________
+*     1 2 3 4 5
+*     V G S S A
+*     C N C D D
+*     C D L A R
+
+Connect the the Vcc of the BH1750 to +3V (VCC) of the ESP8266
+Connect the GND of the BH1750  to the GND of the ESP8266
+Connect the SDA of the BH1750 to GPIO GPIO4 aka D2 of the ESP8266
+Connect the SCL of the BH1750 to GPIO GPIO5 aka D1 of the ESP8266s. 
+The BH1750 sensor can be connected to a max 1 M dupoint cable.
+Cable > 1M may not work as the  data signals dies out due to the long distance and the interference may be too much.
 
 Optionally, if want to use this as a light switch for a lamp (or LED).
 Connect a push button, one end to ground, the other end to GPIO12, D6 .
 Connect the -ve terminal of an LED to GPIO 14 - D5
 Connect the +ve terminal of the LED to one leg of a 1K ohm resister.
 Connect the 2nd leg of gthe 1K ohm resister to ground, VCC (+3V).
-
+  
 Optionally, if you want to display the status on an SSD1306 I2C OLED.
 Connect the the Vcc of the OLED to +3V (VCC) of the ESP8266
 Connect the GND of the OLED  to the GND of the ESP8266
@@ -117,6 +133,7 @@ Windows, Mac and Linux client are supported.
 
 Start Adruino IDE
 Then click the menu.
+
 Adruino->Preference->"Additional Boards Manager Url:", then input http://arduino.esp8266.com/stable/package_esp8266com_index.json
 Then exit Arduino and restart to take in the preference.
 
@@ -125,7 +142,7 @@ Tools->Borad:Atmega... ->Boards Manager
 Input ESP8266 to search and find the matching board drivers for ESP8266
 Click Install to install.
 
-Tools->Borad->LOLIN（Wemos）D1 R2 & Mini (Appear under the section for ESP8266, will not show up unless you did the preference setting above and installed the board drivers for ESP8266)
+Tools->Borad->LOLIN（Wemos）D1 R2 & Mini (Appear under the section for ESP8266, will not show up unless you did the preference setting above)
 Tools->Flash size-> "4M (3M SPIFFS)"  (to partition how much flash memory to store the temperature and humidity data. 3M is the max. 1M is the min.)
 Tools->Port:->"/dev/cu......."  - select your serail port used to connect to the ESP8266, if nothing shows up, check your cable or your driver for that USB-Serail port.
                                   Most ESP ports used the CH340 driver (e.g. Wemos D1 R1) or the CP1201 driver.
@@ -148,12 +165,23 @@ lightsw
 upgrade
 
 Then update the full path of the feeds to the credential.h file.
-e.g. 
+e,g, 
 
-#define IO_Temperature "cheungbx2/feeds/temperature"
-#define IO_Humidity    "cheungbx2/feeds/humidity"
-#define IO_Switch      "cheungbx2/feeds/lightsw"
-#define IO_Upgrade     "cheungbx2/feeds/upgrade"
+
+#define  WIFIssid        "???????"
+#define  WIFIpassword     "???????"
+#define  OTA_password       "???????"
+
+#define IO_USERNAME    "???????"
+#define IO_KEY         "??????????????????????????????"
+#define MQTT_SERVER          "io.adafruit.com"    
+#define MQTT_SERVERPORT      1883
+#define MQTT_LUX         "????????/feeds/lux"
+#define MQTT_AirTemp     "????????/feeds/airtemp"
+#define MQTT_Humidity    "????????/feeds/humidity"
+#define MQTT_Led         "????????/feeds/led"
+#define MQTT_Pump        "????????/feeds/pump"
+#define MQTT_Upgrade           "????????/feeds/upgrade"
 
 
 Click tools->Serial Monitor. Set the serial speed to "115200 baud" to  match with this program.
@@ -177,11 +205,10 @@ You can click the reset button on the ESP8266 board to reboot any time.
 Or you can adjust the source code and clieck "->" to recompile and upload again.
 
 Once wifi is successfully connected, you will see the message like the one below
-Connecting to: homewifissid
+Connecting to: yourwifissid
 ...........WiFi connected at: 192.168.1.113
+
 
 Then you can login to your MQTT account in adafruit.io to view the dashboard and the feeds.
 And create charts for the feeds and buttons for the light switch and upgrade.
-Then test the other features.
-
-*/
+Then test the other feature
