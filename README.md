@@ -6,7 +6,7 @@
  
  Function:  This project is to create an IoT light switch with embedded temperature and humidity senosr. 
             This utilize a ESP8266 WeMos D1 mini , a  SHT20 temperature and humidity senor
-            you can optionally add a lux meter BF1750
+            you can optionally add a lux meter BH1750
             You can optionally add a switch and a relay module to turn on/off lights.
             You can switch your lights on or off either by pressing a physical button, or toggle the virtual button on Adafruit.IO web page.
             The Adafruit.IO dashboard displays temperature and humidity measurements over time.
