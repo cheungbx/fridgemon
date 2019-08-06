@@ -1,12 +1,31 @@
- /*
+ fridgemon v2.0
+ 2019 08 06 
  Author: Billy Cheung
  
- 
+ Extra libraries required:
+ This program uses these two sensor libraries tht can be downloaded from the links below. 
+ Click "Clone and Download"  to download the zip file.
+ Then add to Arduino IDE by clicking 
+ Sketch->Include Library->Manage Library->Add .zip library
 
+ SHT20 - Humidity and Temperature sensor by DFRobot.
+ https://github.com/DFRobot/DFRobot_SHT20
+
+
+ light sensor BH1750FVI by PeterEmbedded
+ https://github.com/PeterEmbedded/BH1750FVI
+
+ PubSubClient by Nick O’Leary version 2.7 
+ https://github.com/knolleary/pubsubclient/releases/tag/v2.7
+
+ ESP8266 and ESP32 Oled Driver for SSD1306 Display  v 3.2.6 by Daniel Eichhorn, Fabrice Weiberg.
+ https://github.com/ThingPulse/esp8266-oled-ssd1306
+
+ 
  
  Function:  This project is to create an IoT light switch with embedded temperature and humidity senosr. 
             This utilize a ESP8266 WeMos D1 mini , a  SHT20 temperature and humidity senor
-            you can optionally add a lux meter BH1750
+            You can optionally add a lux meter BH1750 to sense the light intensity
             You can optionally add a switch and a relay module to turn on/off lights.
             You can switch your lights on or off either by pressing a physical button, or toggle the virtual button on Adafruit.IO web page.
             The Adafruit.IO dashboard displays temperature and humidity measurements over time.
@@ -77,8 +96,8 @@ Connect the the Vcc of the SHT20 to +3V (VCC) of the ESP8266
 Connect the GND of the SHT20  to the GND of the ESP8266
 Connect the SDA of the SHT20 to GPIO GPIO4 aka D2 of the ESP8266
 Connect the SCL of the SHT20 to GPIO GPIO5 aka D1 of the ESP8266s. 
-The SHT sensor can be connected to a max 1 M dupoint cable.
-Cable > 1M may not work as the  data signals dies out due to the long distance and the interference may be too much.
+The SHT sensor can be connected to a max 1 Meter long  dupoint cable.
+Cable > 1 Meter may not work as the  data signals dies out due to the long distance and the interference may be too much.
 
 
 Optionally, you can add a light sensor BH1750 for a Lux meter.
@@ -96,7 +115,10 @@ Connect the the Vcc of the BH1750 to +3V (VCC) of the ESP8266
 Connect the GND of the BH1750  to the GND of the ESP8266
 Connect the SDA of the BH1750 to GPIO GPIO4 aka D2 of the ESP8266
 Connect the SCL of the BH1750 to GPIO GPIO5 aka D1 of the ESP8266s. 
-The BH1750 sensor can be connected to a max 1 M dupoint cable.
+Unless wnat to use more than one BH1750 in your design, the Adr pin can be left unconnected or connected to GND to set to i2c address of 0x23
+Otherwise, connect the 2nd BH1750's ADR pin to VCC or 3.3V  to set a differnet I2c address of  0x5C.
+
+The BH1750 sensor can be connected to a max 1 Meter long dupoint cable.
 Cable > 1M may not work as the  data signals dies out due to the long distance and the interference may be too much.
 
 Optionally, if want to use this as a light switch for a lamp (or LED).
@@ -124,7 +146,7 @@ If you are using a MAC computer, then this will be your Documents\Arduino folder
 A folder called fridgemon will be created.
 Then you will see two files
 fridgemon.ino - this file
-Credentials.h - the file that holds all WIFI and MQTT ids and passwords.
+Credentials.h - the file that holds all WIFI and MQTT ids and passwords, and path names of all the MQTT feeds
 
 For Adruino IDE set up
 -----------------------
@@ -169,20 +191,20 @@ Then update the full path of the feeds to the credential.h file.
 e,g, 
 
 
-#define  WIFIssid        "???????"
-#define  WIFIpassword     "???????"
-#define  OTA_password       "???????"
+#define  WIFIssid        "??????"
+#define  WIFIpassword    "??????"
+#define  OTA_password    "??????"
 
-#define IO_USERNAME    "???????"
-#define IO_KEY         "??????????????????????????????"
-#define MQTT_SERVER          "io.adafruit.com"    
-#define MQTT_SERVERPORT      1883
+#define IO_USERNAME      "???????"
+#define IO_KEY           "***************************"
+#define MQTT_SERVER      "io.adafruit.com"    
+#define MQTT_SERVERPORT  1883
 #define MQTT_LUX         "????????/feeds/lux"
 #define MQTT_AirTemp     "????????/feeds/airtemp"
 #define MQTT_Humidity    "????????/feeds/humidity"
 #define MQTT_Led         "????????/feeds/led"
 #define MQTT_Pump        "????????/feeds/pump"
-#define MQTT_Upgrade           "????????/feeds/upgrade"
+#define MQTT_Upgrade     "????????/feeds/upgrade"
 
 
 Click tools->Serial Monitor. Set the serial speed to "115200 baud" to  match with this program.
@@ -198,14 +220,10 @@ Then you need to search in google and download them fro Github as zip files.
 Then click Sketch->Include Library->Add .Zip libraries   and open these zip files to add to the Aruindo IDE.
 Then recompile by clicking "->" to compile and upload.
 
-Repeat this process until all missing library files have been instlaled.
+This program uses these two sensor libraries tht can be downloaded from the links below. Click "Clone and Download"  to download the zip file.
+Then add to Arduino IDE by clicking 
+Sketch->Include Library->Manage Library->Add .zip library
 
-
- Extra libraries required:
- This program uses these two sensor libraries tht can be downloaded from the links below. 
- Click "Clone and Download"  to download the zip file.
- Then add to Arduino IDE by clicking 
- Sketch->Include Library->Manage Library->Add .zip library
 
  SHT20 - Humidity and Temperature sensor by DFRobot.
  https://github.com/DFRobot/DFRobot_SHT20
@@ -221,6 +239,9 @@ Repeat this process until all missing library files have been instlaled.
  https://github.com/ThingPulse/esp8266-oled-ssd1306
 
 
+
+Repeat this process until all missing library files have been instlaled.
+
 Once the program is uploaded, the board will be reset, and you will see diagnosis messages on the serail monitor.
 Check that WIFI is connected successfully. If no, check the SSID nad password you put into credentials.h.
 You can click the reset button on the ESP8266 board to reboot any time.
@@ -234,3 +255,5 @@ Connecting to: yourwifissid
 Then you can login to your MQTT account in adafruit.io to view the dashboard and the feeds.
 And create charts for the feeds and buttons for the light switch and upgrade.
 Then test the other feature
+
+*/
