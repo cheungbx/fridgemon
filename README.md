@@ -200,6 +200,27 @@ Then recompile by clicking "->" to compile and upload.
 
 Repeat this process until all missing library files have been instlaled.
 
+
+ Extra libraries required:
+ This program uses these two sensor libraries tht can be downloaded from the links below. 
+ Click "Clone and Download"  to download the zip file.
+ Then add to Arduino IDE by clicking 
+ Sketch->Include Library->Manage Library->Add .zip library
+
+ SHT20 - Humidity and Temperature sensor by DFRobot.
+ https://github.com/DFRobot/DFRobot_SHT20
+
+
+ light sensor BH1750FVI by PeterEmbedded
+ https://github.com/PeterEmbedded/BH1750FVI
+
+ PubSubClient by Nick O’Leary version 2.7 
+ https://github.com/knolleary/pubsubclient/releases/tag/v2.7
+
+ ESP8266 and ESP32 Oled Driver for SSD1306 Display  v 3.2.6 by Daniel Eichhorn, Fabrice Weiberg.
+ https://github.com/ThingPulse/esp8266-oled-ssd1306
+
+
 Once the program is uploaded, the board will be reset, and you will see diagnosis messages on the serail monitor.
 Check that WIFI is connected successfully. If no, check the SSID nad password you put into credentials.h.
 You can click the reset button on the ESP8266 board to reboot any time.
